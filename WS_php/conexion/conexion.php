@@ -12,7 +12,13 @@ class Conexion
 	private function __construct()
 	{
 		try {
-			$this->con = new PDO("mysql:host=$this->host;dbname=$this->db", $this->user, $this->passw);
+			//CAdena de conexion
+			$this->con = new PDO(
+				"mysql:host=$this->host;
+				dbname=$this->db",
+				$this->user,
+				$this->passw
+			);
 		} catch (PDOException $e) {
 			echo "Error: " . $e;
 		}

@@ -36,8 +36,8 @@ class Restaurante
 	//Insertar restaurante
 	public function insertarrest($rest, $direc, $tel)
 	{
-		$req = $this->res->insertarrest($rest, $direc, $tel);
-		if ($req) return true;
+		$data = $this->res->insertarrest($rest, $direc, $tel);
+		if ($data) return true;
 		else return false;
 	}
 }

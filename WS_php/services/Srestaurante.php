@@ -1,10 +1,11 @@
 <?php //Recibir peticiones de restaurante:
+
 include('../controllers/Crestaurante.php');
 include('../controllers/Calgoritmos.php');
 //instancia a la clase restaurante
 $rest = new Restaurante();
-
-$accion = $_SERVER["REQUEST_URI"];
+//obtener la accion
+$method = $_SERVER["REQUEST_URI"];
 
 
 //SELECT RESTAURANTE
@@ -15,8 +16,9 @@ if ($_GET["accion"] == "select") {
 		print json_encode($data, JSON_FORCE_OBJECT);
 	}
 
-	if ($var == "one") {
+	if ($var == "one" && is_numeric($_GET["id"])) {
 		$id = $_GET["id"];
+
 		$data = $rest->listarrestaurante_one($id);
 		if (!empty($data)) {
 			print json_encode($data, JSON_FORCE_OBJECT);

@@ -1,4 +1,5 @@
 <?php
+
 include_once('../conexion/conexion.php');
 class Mrestaurante
 {
@@ -29,7 +30,7 @@ class Mrestaurante
 		$sql = "call sp_s_restaurante_one(?)";
 		try {
 			$PrepareStatement = $this->cnn->getPrepareStatement($sql);
-			$PrepareStatement->bindValue(1, $id, PDO::PARAM_STR);
+			$PrepareStatement->bindValue(1, $id, PDO::PARAM_INT);
 			$PrepareStatement->execute();
 			return $PrepareStatement->fetch();
 		} catch (PDOException $e) {
