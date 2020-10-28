@@ -33,9 +33,9 @@ if (
 	$clave = $alg->palabra(($_GET["clave"]));
 	$restaurante = $alg->palabra(($_GET["restaurante"]));
 
-	if ($rest->insertartrabajador($rol, $nombre, $apellido, $tel, $correo, $dui, $clave, $restaurante)) {
-		print json_encode("true", JSON_FORCE_OBJECT);
-	}
+	$data = $rest->insertartrabajador($rol, $nombre, $apellido, $tel, $correo, $dui, $clave, $restaurante);
+
+	print json_encode($data, JSON_FORCE_OBJECT);
 }
 
 //Modificar Trabajador
@@ -50,8 +50,8 @@ if (
 	!empty($_GET["correo"]) &&
 	!empty($_GET["dui"]) &&
 	!empty($_GET["clave"]) &&
-	!empty($_GET["restaurante"] &&
-		!empty($_GET["idtrabajador"]))
+	!empty($_GET["restaurante"]) &&
+	!empty($_GET["idtrabajador"])
 ) {
 
 	$alg = new Algoritmos();
@@ -67,7 +67,7 @@ if (
 	$id = ($_GET["idtrabajador"]);
 
 	if ($rest->modificartrabajador($rol, $nombre, $apellido, $tel, $correo, $dui, $clave, $restaurante, $id)) {
-		print json_encode("true", JSON_FORCE_OBJECT);
+		print json_encode(true, JSON_FORCE_OBJECT);
 	}
 }
 
@@ -77,7 +77,7 @@ if ($_GET["accion"] == "delete" && is_numeric($_GET["id"])) {
 	$id = $_GET["id"];
 	$data = $rest->eliminartrabajador($id);
 	if ($data) {
-		print json_encode("true", JSON_FORCE_OBJECT);
+		print json_encode(true, JSON_FORCE_OBJECT);
 	}
 }
 

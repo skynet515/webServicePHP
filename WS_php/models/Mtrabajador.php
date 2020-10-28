@@ -29,7 +29,7 @@ class Mtrabajador
 		$sql = "call sp_s_trabajador_one(?)";
 		try {
 			$PrepareStatement = $this->cnn->getPrepareStatement($sql);
-			$PrepareStatement->bindValue(1, $id, PDO::PARAM_STR);
+			$PrepareStatement->bindValue(1, $id, PDO::PARAM_INT);
 			$PrepareStatement->execute();
 			return $PrepareStatement->fetch();
 		} catch (PDOException $e) {
@@ -75,39 +75,51 @@ class Mtrabajador
 			$PrepareStatement->execute();
 			$idr = $PrepareStatement->fetch();
 
-			if (!empty($idr)) {
-				$sql = "CALL sp_c_personas(?,?,?,?,?,?,?)";
-				$PrepareStatement = $this->cnn->getPrepareStatement($sql);
-				$PrepareStatement->bindValue(1, $nombre, PDO::PARAM_STR);
-				$PrepareStatement->bindValue(2, $apellido, PDO::PARAM_STR);
-				$PrepareStatement->bindValue(3, $tel, PDO::PARAM_STR);
-				$PrepareStatement->bindValue(4, $correo, PDO::PARAM_STR);
-				$PrepareStatement->bindValue(5, $dui, PDO::PARAM_STR);
-				$PrepareStatement->bindValue(6, $clave, PDO::PARAM_STR);
-				$PrepareStatement->bindValue(7, $idr['idrol'], PDO::PARAM_INT);
-				$req = $PrepareStatement->execute();
+			$sql = "SELECT correo FROM tblpersonas WHERE correo=(?)";
+			$PrepareStatement = $this->cnn->getPrepareStatement($sql);
+			$PrepareStatement->bindValue(1, $correo, PDO::PARAM_STR);
+			$PrepareStatement->execute();
+			$val = $PrepareStatement->fetch();
 
-				if ($req) {
 
-					$sql = "CALL sp_s_persona_max(?)";
+			if ($val) {
+				return "exist";
+			} else {
+
+				if (!empty($idr)) {
+					$sql = "CALL sp_c_personas(?,?,?,?,?,?,?)";
 					$PrepareStatement = $this->cnn->getPrepareStatement($sql);
-					$PrepareStatement->bindValue(1, $tel, PDO::PARAM_STR);
-					$PrepareStatement->execute();
-					$idpers = $PrepareStatement->fetch();
+					$PrepareStatement->bindValue(1, $nombre, PDO::PARAM_STR);
+					$PrepareStatement->bindValue(2, $apellido, PDO::PARAM_STR);
+					$PrepareStatement->bindValue(3, $tel, PDO::PARAM_STR);
+					$PrepareStatement->bindValue(4, $correo, PDO::PARAM_STR);
+					$PrepareStatement->bindValue(5, $dui, PDO::PARAM_STR);
+					$PrepareStatement->bindValue(6, $clave, PDO::PARAM_STR);
+					$PrepareStatement->bindValue(7, $idr['idrol'], PDO::PARAM_INT);
+					$req = $PrepareStatement->execute();
 
-					$sql = "SELECT idrestaurante FROM tblrestaurantes WHERE restaurante =?";
-					$PrepareStatement = $this->cnn->getPrepareStatement($sql);
-					$PrepareStatement->bindValue(1, $rest, PDO::PARAM_STR);
-					$PrepareStatement->execute();
+					if ($req) {
 
-					$idrest = $PrepareStatement->fetch();
-
-					if (!empty($idrest)) {
-						$sql = "CALL sp_c_trabajador(?,?)";
+						$sql = "CALL sp_s_persona_max(?)";
 						$PrepareStatement = $this->cnn->getPrepareStatement($sql);
-						$PrepareStatement->bindValue(1, $idpers["idpersona"], PDO::PARAM_INT);
-						$PrepareStatement->bindValue(2, $idrest["idrestaurante"], PDO::PARAM_INT);
-						return $PrepareStatement->execute();
+						$PrepareStatement->bindValue(1, $tel, PDO::PARAM_STR);
+						$PrepareStatement->execute();
+						$idpers = $PrepareStatement->fetch();
+
+						$sql = "SELECT idrestaurante FROM tblrestaurantes WHERE restaurante =?";
+						$PrepareStatement = $this->cnn->getPrepareStatement($sql);
+						$PrepareStatement->bindValue(1, $rest, PDO::PARAM_STR);
+						$PrepareStatement->execute();
+
+						$idrest = $PrepareStatement->fetch();
+
+						if (!empty($idrest)) {
+							$sql = "CALL sp_c_trabajador(?,?)";
+							$PrepareStatement = $this->cnn->getPrepareStatement($sql);
+							$PrepareStatement->bindValue(1, $idpers["idpersona"], PDO::PARAM_INT);
+							$PrepareStatement->bindValue(2, $idrest["idrestaurante"], PDO::PARAM_INT);
+							return $PrepareStatement->execute();
+						}
 					}
 				}
 			}

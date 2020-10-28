@@ -2,9 +2,22 @@
 include('../controllers/CCliente.php');
 include('../controllers/Calgoritmos.php');
 
+
 $cl = new CCliente();
+
+//Aceptar al cliente
+if ($_GET["accion"] == "conf" && is_numeric($_GET["idcliente"])) {
+
+    if ($cl->confCliente($_GET["idcliente"]))
+        print json_encode(true, JSON_FORCE_OBJECT);
+}
+
+
 if ($_GET["accion"] == "select") {
+
     $var = $_GET["var"];
+
+    //Mostrar cliente confirmados
     if ($var == "all") {
         $data = $cl->ListarCliente();
         print json_encode($data, JSON_FORCE_OBJECT);
@@ -17,6 +30,12 @@ if ($_GET["accion"] == "select") {
             print json_encode($data, JSON_FORCE_OBJECT);
         }
     }
+
+    //Mostrar clientes sin confirmar
+    if ($var == "!conf") {
+        $data = $cl->ListarClientesconf();
+        print json_encode($data, JSON_FORCE_OBJECT);
+    }
 }
 
 //insertar cliente
@@ -28,7 +47,6 @@ if (
     !empty($_GET["nombre"]) &&
     !empty($_GET["apellido"]) &&
     !empty($_GET["tel"]) &&
-    !empty($_GET["correo"]) &&
     !empty($_GET["dui"]) &&
     !empty($_GET["clave"])
 ) {
@@ -40,9 +58,14 @@ if (
     $correo = $alg->palabra(($_GET["correo"]));
     $dui = $alg->palabra(($_GET["dui"]));
     $clave = $alg->palabra(($_GET["clave"]));
-    if ($cl->InsertarCliente($rol, $nombre, $apellido, $tel, $correo, $dui, $clave)) {
-        print json_encode(true, JSON_FORCE_OBJECT);
+
+    if (!empty($correo)  && $rol != "Otro") {
+        $data =  $cl->InsertarCliente($rol, $nombre, $apellido, $tel, $correo, $dui, $clave);
+    } else {
+        $data = $cl->InsertarClienteO($rol, $nombre, $apellido, $tel, $correo, $dui, $clave);
     }
+
+    print json_encode($data, JSON_FORCE_OBJECT);
 }
 
 //modificar cliente
@@ -69,17 +92,16 @@ if (
     $clave = $alg->palabra(($_GET["clave"]));
     $id = $alg->palabra(($_GET["idcliente"]));
 
-    if($cl->EditarCliente($rol, $nombre, $apellido, $tel, $correo, $dui, $clave, $id)){
+    if ($cl->EditarCliente($rol, $nombre, $apellido, $tel, $correo, $dui, $clave, $id)) {
         print json_encode(true, JSON_FORCE_OBJECT);
     }
 }
 
 //eliminar
-if($_GET["accion"]=="delete" && is_numeric($_GET["id"])){
-    $idcliente=$_GET["id"];
+if ($_GET["accion"] == "delete" && is_numeric($_GET["idcliente"])) {
+    $idcliente = $_GET["idcliente"];
 
-    if($cl->EliminarCliente($idcliente)){
+    if ($cl->EliminarCliente($idcliente)) {
         print json_encode(true, JSON_FORCE_OBJECT);
     }
 }
-

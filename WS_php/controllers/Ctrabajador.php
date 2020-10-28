@@ -34,7 +34,9 @@ class Ctrabajador
 	//Insertar trabajador
 	public function insertartrabajador($rol, $nombre, $apellido, $tel, $correo, $dui, $clave, $rest)
 	{
-		return $this->tb->Insertartrabajador($rol, $nombre, $apellido, $tel, $correo, $dui, $clave, $rest);
+
+		$data = $this->tb->Insertartrabajador($rol, $nombre, $apellido, $tel, $correo, $dui, $clave, $rest);
+		return $data;
 	}
 
 	//Modificar

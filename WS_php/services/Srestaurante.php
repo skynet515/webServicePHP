@@ -1,11 +1,13 @@
 <?php //Recibir peticiones de restaurante:
 
+
+
 include('../controllers/Crestaurante.php');
 include('../controllers/Calgoritmos.php');
 //instancia a la clase restaurante
 $rest = new Restaurante();
 //obtener la accion
-$method = $_SERVER["REQUEST_URI"];
+$method = $_SERVER["REQUEST_METHOD"];
 
 
 //SELECT RESTAURANTE
@@ -34,8 +36,8 @@ if ($_GET["accion"] == "insert") {
 
 	$data = $rest->insertarrest($resta, $direc, $tel);
 
-	if ($data) print json_encode("true", JSON_FORCE_OBJECT);
-	else print json_encode("false", JSON_FORCE_OBJECT);
+	if ($data) print json_encode(true, JSON_FORCE_OBJECT);
+	else print json_encode(false, JSON_FORCE_OBJECT);
 }
 //Update Restaurante
 if ($_GET["accion"] == "update") {
@@ -47,8 +49,8 @@ if ($_GET["accion"] == "update") {
 
 	$data = $rest->modificarestaurante($id, $resta, $direc, $tel);
 
-	if ($data) print json_encode("true", JSON_FORCE_OBJECT);
-	else print json_encode("false", JSON_FORCE_OBJECT);
+	if ($data) print json_encode(true, JSON_FORCE_OBJECT);
+	else print json_encode(false, JSON_FORCE_OBJECT);
 }
 
 //Delete
@@ -58,7 +60,7 @@ if ($_GET["accion"] == "delete") {
 		$id = $_GET["id"];
 		$data = $rest->eliminarrestaurante($id);
 
-		if ($data) print json_encode("true", JSON_FORCE_OBJECT);
-		else print json_encode("false", JSON_FORCE_OBJECT);
+		if ($data) print json_encode(true, JSON_FORCE_OBJECT);
+		else print json_encode(false, JSON_FORCE_OBJECT);
 	}
 }
