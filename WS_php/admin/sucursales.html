@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+ <html class="no-js" lang="es"> 
+    <head>
+        <meta charset="utf-8">
+
+        <title>Administración CETU</title>
+
+        <meta name="description" content="ProUI is a Responsive Bootstrap Admin Template created by pixelcave and published on Themeforest.">
+        <meta name="author" content="pixelcave">
+        <meta name="robots" content="noindex, nofollow">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0">
+
+        <!-- Icons -->
+        <!-- The following icons can be replaced with your own, they are used by desktop and mobile browsers -->
+        <link rel="shortcut icon" href="img/favicon.png">
+        <link rel="apple-touch-icon" href="img/icon57.png" sizes="57x57">
+        <link rel="apple-touch-icon" href="img/icon72.png" sizes="72x72">
+        <link rel="apple-touch-icon" href="img/icon76.png" sizes="76x76">
+        <link rel="apple-touch-icon" href="img/icon114.png" sizes="114x114">
+        <link rel="apple-touch-icon" href="img/icon120.png" sizes="120x120">
+        <link rel="apple-touch-icon" href="img/icon144.png" sizes="144x144">
+        <link rel="apple-touch-icon" href="img/icon152.png" sizes="152x152">
+        <link rel="apple-touch-icon" href="img/icon180.png" sizes="180x180">
+        <!-- END Icons -->
+
+        <!-- Stylesheets -->
+        <!-- Bootstrap is included in its original form, unaltered -->
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+
+        <!-- Related styles of various icon packs and plugins -->
+        <link rel="stylesheet" href="css/plugins.css">
+
+        <!-- The main stylesheet of this template. All Bootstrap overwrites are defined in here -->
+        <link rel="stylesheet" href="css/main.css">
+
+        <!-- Include a specific file here from css/themes/ folder to alter the default theme of the template -->
+
+        <!-- The themes stylesheet of this template (for using specific theme color in individual elements - must included last) -->
+        <link rel="stylesheet" href="css/themes.css">
+        <!-- END Stylesheets -->
+
+        <!-- Modernizr (browser feature detection library) -->
+        <script src="js/vendor/modernizr.min.js"></script>
+    </head>
+    <body>
+     
+        <div id="page-wrapper">
+             
+            <div id="page-container" class="sidebar-partial sidebar-visible-lg sidebar-no-animations">
+              
+                <div id="sidebar">
+                    <!-- Wrapper for scrolling functionality -->
+                    <div id="sidebar-scroll">
+                        <!-- Sidebar Content -->
+                        <div class="sidebar-content">
+                            <!-- Brand -->
+                            <a href="index.html" class="sidebar-brand">
+                                <i class="gi gi-flash"></i><span class="sidebar-nav-mini-hide"><strong>Restaurante</strong>CETU</span>
+                            </a>
+                            <!-- Sidebar Navigation -->
+                            <ul class="sidebar-nav">
+                                <li>
+                                    <a href="index.html"><i class="gi gi-stopwatch sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Inicio</span></a>
+                                </li>
+                
+                                <li>
+                                    <a href="empleados.html"><i class="sidebar-nav-mini-hide"></i><i class="gi gi-certificate sidebar-nav-icon"></i>Empleados</span></a>  
+                                </li>
+                                <li>
+                                    <a href="clientes.html"><i class="sidebar-nav-mini-hide"></i><i class="gi gi-notes_2 sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Clientes</span></a>
+                    
+                                </li>
+                                <li>
+                                    <a href="sucursales.html" class="active"><i class="sidebar-nav-indicator sidebar-nav-mini-hide"></i><i class="gi gi-table sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Sucursales</span></a>
+                                   
+                                </li>
+                                <li>
+                                    <a href="reservas-linea.html"><i class="sidebar-nav-indicator sidebar-nav-mini-hide"></i><i class="gi gi-table sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Reservas en Línea</span></a>
+                                   
+                                </li>
+        
+                            </ul>
+                           
+                        </div>
+                        <!-- END Sidebar Content -->
+                    </div>
+                    <!-- END Wrapper for scrolling functionality -->
+                </div>
+                <!-- END Main Sidebar -->
+
+                <!-- Main Container -->
+                <div id="main-container">
+              
+                    <header class="navbar navbar-default">
+                        <!-- Left Header Navigation -->
+                        <ul class="nav navbar-nav-custom">
+                            <!-- Main Sidebar Toggle Button -->
+                            <li>
+                                <a href="javascript:void(0)" onclick="App.sidebar('toggle-sidebar');this.blur();">
+                                    <i class="fa fa-bars fa-fw"></i>
+                                </a>
+                            </li>
+               
+                            <!-- END Template Options -->
+                        </ul>
+                       
+                     
+                        <ul class="nav navbar-nav-custom pull-right">
+                           
+
+                            <!-- User Dropdown -->
+                            <li class="dropdown">
+                                <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
+                                    <img src="img/placeholders/avatars/avatar2.jpg" alt="avatar"> <i class="fa fa-angle-down"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-custom dropdown-menu-right">
+                                    <li class="dropdown-header text-center">Account</li>
+                                
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a href="page_ready_user_profile.html">
+                                            <i class="fa fa-user fa-fw pull-right"></i>
+                                            Profile
+                                        </a>
+                                        <!-- Opens the user settings modal that can be found at the bottom of each page (page_footer.html in PHP version) -->
+                                        <a href="#modal-user-settings" data-toggle="modal">
+                                            <i class="fa fa-cog fa-fw pull-right"></i>
+                                            Settings
+                                        </a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a href="login.html"><i class="fa fa-ban fa-fw pull-right"></i> Logout</a>
+                                    </li>
+                                 
+                                </ul>
+                            </li>
+                            <!-- END User Dropdown -->
+                        </ul>
+                        <!-- END Right Header Navigation -->
+                    </header>
+                    <!-- END Header -->
+
+
+                    <!-- Page content -->
+                    <div id="page-content">
+
+                        <div class="row text-center">
+                            <div class="col-sm-6 col-lg-3">
+                                <a href="agregar-sucursal.html" class="widget widget-hover-effect2">
+                                    <div class="widget-extra themed-background-success">
+                                        <h4 class="widget-content-light"><strong>Añadir nueva</strong> Sucursal</h4>
+                                    </div>
+                                    <div class="widget-extra-full"><span class="h2 text-success animation-expandOpen"><i class="fa fa-plus"></i></span></div>
+                                </a>
+                            </div>
+                            
+                        </div>
+                        <!-- END Quick Stats -->
+
+                        <!-- All Products Block -->
+                        <div class="block full">
+                          
+                            <table id="ecom-products" class="table table-bordered table-striped table-vcenter">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center" style="width: 70px;">ID</th>
+                                        <th>Nombre</th>
+                                        <th class="hidden-xs">Dirección</th>
+                                        <th class="hidden-xs">Teléfono</th>
+                                        <th class="hidden-xs">Encargado</th>
+                                        <th class="text-center">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="text-center"><a href="page_ecom_product_edit.html"><strong>PID.8799</strong></a></td>
+                                        <td><a href="page_ecom_product_edit.html">Benito Juárez</a></td>
+                                        <td class="hidden-xs"><strong>Avenida sur, calle Arce local #5678</strong></td>
+                                        <td class="hidden-xs">
+                                            <span>2298-7951</span>
+                                        </td>
+                                        <td class="hidden-xs">
+                                            <span class="label label-success">Alejandra Abrego</span>
+                                        </td>
+                                        <td class="text-center">
+                                            <div class="btn-group btn-group-xs">
+                                                <a href="page_ecom_product_edit.html" data-toggle="tooltip" title="Edit" class="btn btn-default"><i class="fa fa-pencil"></i></a>
+                                                <a href="javascript:void(0)" data-toggle="tooltip" title="Delete" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+              
+                                </tbody>
+                            </table>
+                            <!-- END All Products Content -->
+                        </div>
+                        <!-- END All Products Block -->
+                    </div>
+                    <!-- END Page Content -->
+
+                    <!-- Footer -->
+                    <footer class="clearfix">
+                       
+                        <div class="pull-left">
+                         &copy; Restaurante CETU 2020</a>
+                        </div>
+                    </footer>
+                    <!-- END Footer -->
+                </div>
+                <!-- END Main Container -->
+            </div>
+            <!-- END Page Container -->
+        </div>
+    
+
+        <!-- jQuery, Bootstrap.js, jQuery plugins and Custom JS code -->
+        <script src="js/vendor/jquery.min.js"></script>
+        <script src="js/vendor/bootstrap.min.js"></script>
+        <script src="js/plugins.js"></script>
+        <script src="js/app.js"></script>
+
+        <!-- Load and execute javascript code used only in this page -->
+        <script src="js/pages/ecomProducts.js"></script>
+        <script>$(function(){ EcomProducts.init(); });</script>
+    </body>
+</html>
