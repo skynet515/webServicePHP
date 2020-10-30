@@ -2,16 +2,13 @@
 include('../controllers/CCliente.php');
 include('../controllers/Calgoritmos.php');
 
-
 $cl = new CCliente();
-
 //Aceptar al cliente
 if ($_GET["accion"] == "conf" && is_numeric($_GET["idcliente"])) {
 
     if ($cl->confCliente($_GET["idcliente"]))
         print json_encode(true, JSON_FORCE_OBJECT);
 }
-
 
 if ($_GET["accion"] == "select") {
 

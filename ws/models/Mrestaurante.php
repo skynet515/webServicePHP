@@ -1,6 +1,6 @@
 <?php
-
 include_once('../conexion/conexion.php');
+
 class Mrestaurante
 {
 	private $cnn;
