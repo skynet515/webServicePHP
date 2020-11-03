@@ -1,5 +1,5 @@
 <?php
-include_once('../conexion/conexion.php');
+include_once('../../conexion/conexion.php');
 
 class MCliente
 {
@@ -76,12 +76,12 @@ class MCliente
             $idr = $PrepareStatement->fetch();
 
             $sql = "SELECT correo FROM tblpersonas WHERE correo=(?)";
-            $PrepareStatement = $this->cnn->getPrepareStatement($sql);
+            $PrepareStatement = $this->conexion->getPrepareStatement($sql);
             $PrepareStatement->bindValue(1, $correo, PDO::PARAM_STR);
             $PrepareStatement->execute();
             $val = $PrepareStatement->fetch();
 
-            if ($val) {
+            if ($val["correo"] != "") {
                 return "exist";
             } else {
 

@@ -1,5 +1,5 @@
 <?php
-include("../models/Mtrabajador.php");
+include("../../models/Mtrabajador.php");
 class Ctrabajador
 {
 	private $tb;

@@ -1,5 +1,5 @@
 <?php
-include('../models/Msilla.php');
+include('../../models/Msilla.php');
 
 class Silla
 {

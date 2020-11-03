@@ -1,4 +1,6 @@
 <?php
+//Activar al tenerlo listo el ws please
+//error_reporting(0);
 class Conexion
 {
 	private $host = "den1.mysql1.gear.host";

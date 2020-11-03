@@ -1,5 +1,5 @@
 <?php
-include('../models/MCliente.php');
+include('../../models/MCliente.php');
 
 class CCliente
 {
