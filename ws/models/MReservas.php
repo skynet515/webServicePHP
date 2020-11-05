@@ -25,7 +25,7 @@
                     $PrepareStatement->bindValue(1, $numasis, PDO::PARAM_INT);
                     $PrepareStatement->bindValue(2, $fechare, PDO::PARAM_STR);
                     $PrepareStatement->bindValue(3, $sillase, PDO::PARAM_INT);
-                    $PrepareStatement->bindValue(4, $idcliente, PDO::PARAM_INT);
+                    $PrepareStatement->bindValue(4, $idcliente["idcliente"], PDO::PARAM_INT);
                     $PrepareStatement->bindValue(5, $idtrabajador, PDO::PARAM_INT);
                     $PrepareStatement->bindValue(6, $idrest, PDO::PARAM_INT);
                     return $PrepareStatement->execute();
