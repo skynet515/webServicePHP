@@ -95,7 +95,7 @@ class MLogin
     public function restarante($id)
     {
         $sql = "SELECT idrestaurante FROM 
-        tbltrabajadores WHERE idtrabajador = ?";
+        tbltrabajadores WHERE idpersona = ?";
         try {
             $PrepareStatement = $this->cnn->getPrepareStatement($sql);
             $PrepareStatement->bindValue(1, $id, PDO::PARAM_INT);

@@ -71,6 +71,8 @@ class CLogin
                     $req = $this->login->restarante($_SESSION['id']);
                     $_SESSION['rol'] = $request["rol"];
                     $_SESSION['idrest'] = $req["idrestaurante"];
+                    //traer el id del trabajador activo 
+                    
                 }
                 return $request;
             }
