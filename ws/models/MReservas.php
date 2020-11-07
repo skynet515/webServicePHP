@@ -37,6 +37,27 @@
                 return false;
             }
         }
+
+        public function ReservasConfirmadas($idpersona){
+            try{
+                $sql = "CALL sp_s_cliente_one(?)";
+                $PrepareStatement = $this->cnn->getPrepareStatement($sql);
+                $PrepareStatement->bindValue(1, $idpersona, PDO::PARAM_INT);
+                $PrepareStatement->execute();
+                $idcliente = $PrepareStatement->fetch();
+
+                $sql="CALL sp_reservas_cl(?)";
+                $PrepareStatement=$this->cnn->getPrepareStatement($sql);
+                $PrepareStatement->bindValue(1, $idcliente["idcliente"], PDO::PARAM_INT);
+                $PrepareStatement->execute();
+                return $PrepareStatement->fetch();
+
+            }catch(PDOException $e){
+                echo "Error: ".$e;
+                return false;
+            }
+
+        }
     }
 
 

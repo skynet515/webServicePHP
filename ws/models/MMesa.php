@@ -11,12 +11,13 @@ class MMesa
         $this->conexion = Conexion::getInstance();
     }
 
-    public function ListarMesas()
+    public function ListarMesas($idr)
     {
-        $sql = "SELECT * FROM tblmesas where estado=1";
+        $sql = "SELECT * FROM tblmesas where estado=1 and idrestaurante=?";
         try {
 
             $PrepareStatement = $this->conexion->getPrepareStatement($sql);
+            $PrepareStatement->bindValue(1, $idr, PDO::PARAM_INT);
             $PrepareStatement->execute();
             return $PrepareStatement->fetchAll();
         } catch (PDOException $e) {
@@ -67,12 +68,13 @@ class MMesa
         }
     }
 
-    public function InsertarMesa($numsillas)
+    public function InsertarMesa($numsillas, $idr)
     {
-        $sql = "INSERT INTO tblmesas(numsillas) VALUES(?)";
+        $sql = "INSERT INTO tblmesas(numsillas, idrestaurante) VALUES(?,?)";
         try {
             $PrepareStatement = $this->conexion->getPrepareStatement($sql);
             $PrepareStatement->bindValue(1, $numsillas, PDO::PARAM_INT);
+            $PrepareStatement->bindValue(2, $idr, PDO::PARAM_INT);
             return $PrepareStatement->execute();
         } catch (PDOException $e) {
             echo "Error: " . $e;
@@ -80,13 +82,14 @@ class MMesa
         }
     }
 
-    public function EditarMesa($numsillas, $idmesa)
+    public function EditarMesa($numsillas, $idmesa, $idr)
     {
-        $sql = "UPDATE tblmesas SET numsillas=? WHERE idmesa=?";
+        $sql = "UPDATE tblmesas SET numsillas=? WHERE idmesa=? and idrestaurante=?";
         try {
             $PrepareStatement = $this->conexion->getPrepareStatement($sql);
             $PrepareStatement->bindValue(1, $idmesa, PDO::PARAM_INT);
             $PrepareStatement->bindValue(2, $numsillas, PDO::PARAM_INT);
+            $PrepareStatement->bindValue(2, $idr, PDO::PARAM_INT);
             return $PrepareStatement->execute();
         } catch (PDOException $e) {
             echo "Error: " . $e;
@@ -94,12 +97,13 @@ class MMesa
         }
     }
 
-    public function EliminarMesa($idmesa)
+    public function EliminarMesa($idmesa, $idr)
     {
-        $sql = "UPDATE tblmesas SET estado=0 WHERE idmesa=?";
+        $sql = "UPDATE tblmesas SET estado=0 WHERE idmesa=? and idrestaurante=?";
         try {
             $PrepareStatement = $this->conexion->getPrepareStatement($sql);
             $PrepareStatement->bindValue(1, $idmesa, PDO::PARAM_INT);
+            $PrepareStatement->bindValue(2, $idr, PDO::PARAM_INT);
             return $PrepareStatement->execute();
         } catch (PDOException $e) {
             echo "Error: " . $e;

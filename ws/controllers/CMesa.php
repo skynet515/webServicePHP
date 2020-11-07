@@ -13,9 +13,9 @@ class CMesa
 
     //Listar mesas
 
-    public function ListarMesas()
+    public function ListarMesas($idr)
     {
-        return $this->mesa->ListarMesas();
+        return $this->mesa->ListarMesas($idr);
     }
 
     public function ListarMesa_h($id, $fecha)
@@ -25,18 +25,18 @@ class CMesa
         return $this->mesa->ListarMesas_h($id, $fecha, $idr);
     }
 
-    public function InsertarMesa($numsillas)
+    public function InsertarMesa($numsillas, $idr)
     {
-        return $this->mesa->InsertarMesa($numsillas);
+        return $this->mesa->InsertarMesa($numsillas, $idr);
     }
 
-    public function EditarMesa($numsillas, $idmesa)
+    public function EditarMesa($numsillas, $idmesa, $idr)
     {
-        return $this->mesa->EditarMesa($numsillas, $idmesa);
+        return $this->mesa->EditarMesa($numsillas, $idmesa, $idr);
     }
 
-    public function EliminarMesa($idmesa)
+    public function EliminarMesa($idmesa, $idr)
     {
-        return $this->mesa->EliminarMesa($idmesa);
+        return $this->mesa->EliminarMesa($idmesa, $idr);
     }
 }

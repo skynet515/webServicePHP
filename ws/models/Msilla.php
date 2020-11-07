@@ -10,11 +10,12 @@ class Msilla
 	}
 
 	//Muestra  la cantidad de sillas
-	function listarsil()
+	function listarsil($idr)
 	{
-		$sql = "call sp_s_sillas";
+		$sql = "call sp_s_sillas(?)";
 		try {
 			$PrepareStatement = $this->cnn->getPrepareStatement($sql);
+			$PrepareStatement->bindValue(1, $idr, PDO::PARAM_INT);
 			$PrepareStatement->execute();
 			return $PrepareStatement->fetch();
 		} catch (PDOException $e) {
@@ -25,16 +26,15 @@ class Msilla
 
 
 	//Insertar silla
-	function insertarsil($num)
+	function insertarsil($num, $idr)
 	{
-		$sql = "call sp_c_silla";
+		$sql = "call sp_c_silla(?)";
 		try {
 			for ($x = 0; $x < $num; $x++) {
 				$PrepareStatement = $this->cnn->getPrepareStatement($sql);
+				$PrepareStatement->bindValue(1, $idr, PDO::PARAM_INT);
 				$data = $PrepareStatement->execute();
 			}
-
-
 			return $data;
 		} catch (PDOException $e) {
 			echo "Error: " . $e;
@@ -43,21 +43,23 @@ class Msilla
 	}
 
 	//Elimina una silla
-	function eliminarsil($num)
+	function eliminarsil($num, $idr)
 	{
 
 		try {
 			for ($x = 0; $x < $num; $x++) {
 
-				$sql = "SELECT MAX(idsilla) as id FROM tblsillas;";
+				$sql = "SELECT MAX(idsilla) as id FROM tblsillas WHERE idrestaurante = ?;";
 				$PrepareStatement = $this->cnn->getPrepareStatement($sql);
+				$PrepareStatement->bindValue(1, $idr, PDO::PARAM_INT);
 				$PrepareStatement->execute();
 				$id = $PrepareStatement->fetch();
 
 				if (!empty($id)) {
-					$sql = "call sp_d_silla(?)";
+					$sql = "call sp_d_silla(?,?)";
 					$PrepareStatement = $this->cnn->getPrepareStatement($sql);
 					$PrepareStatement->bindValue(1, $id['id'], PDO::PARAM_INT);
+					$PrepareStatement->bindValue(2, $idr, PDO::PARAM_INT);
 					$data = $PrepareStatement->execute();
 				}
 			}
@@ -68,49 +70,3 @@ class Msilla
 		}
 	}
 }
-
-
-/*
-
-//iniciar sesion
-
-
-if(rol =="est" || docente || adminAca){
-	rol="cliente"
-	id=$data["idcliente"];
-}
-else{
-	rol=$data["rol"];
-	id=$data["idtrabajador"];
-}
-
-nombre ="svvw"
-apellido="sfwv"
-correo= "2619" 
-nombre ="svvw"
-apellido="sfwv"
-correo= "2619"
-sesion = true 
-
-//cerrarsesion
-
-
-//
-url: var==session
-
-
-nombre ="svvw"
-apellido="sfwv"
-correo= "2619"
-rol = 
-sesion = true  
-
-if(sesion!=null){
-Vista
-
-}
-
-
-
-
-*/

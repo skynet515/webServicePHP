@@ -16,6 +16,12 @@ class CReservas{
         return $this->reserva->InsertarReserva($idpersona, $numasis, $fechare, $sillase, $idtrabajador, $idrest);
 
     }
+
+    public function ListarReservas(){
+        session_start();
+        $idpersona=$_SESSION["id"];
+        return $this->reserva->ReservasConfirmadas($idpersona);
+    }
 }
 
 

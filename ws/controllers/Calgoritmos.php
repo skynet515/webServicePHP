@@ -2,6 +2,19 @@
 
 class Algoritmos
 {
+	//algorimo mesas:
+	function mesas($mesas)
+	{
+		$mesas = "5-3-4";
+		$array = explode("-", $mesas);
+
+		foreach ($array as $n => $mesa) {
+			$mesas[$n] = $mesa;
+
+			echo '$mesa [' . $n . '] = ' . $mesa . "<br>";
+		}
+		return $mesas;
+	}
 
 	//Algoritmo hora
 	public function hora($hora)

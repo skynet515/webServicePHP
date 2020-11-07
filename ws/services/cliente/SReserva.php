@@ -26,3 +26,8 @@ if (
         print json_encode(false, JSON_FORCE_OBJECT);
     }
 }
+
+if ($method == "GET") {
+    $data = $reserva->ListarReservas();
+    print json_encode($data, JSON_FORCE_OBJECT);
+}

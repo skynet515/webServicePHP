@@ -10,22 +10,22 @@ class Silla
 	}
 
 	//Mostrar todas las silla
-	public function listarsilla()
+	public function listarsilla($idr)
 	{
-		return $this->res->listarsil();
+		return $this->res->listarsil($idr);
 	}
 
 	//Insertar silla
-	public function insertarsilla($num)
+	public function insertarsilla($num, $idr)
 	{
-		$req = $this->res->insertarsil($num);
+		$req = $this->res->insertarsil($num, $idr);
 		if ($req) return true;
 		else return false;
 	}
 
 	//ELiminar silla
-	public function eliminarsilla($num)
+	public function eliminarsilla($num, $idr)
 	{
-		return $this->res->eliminarsil($num);
+		return $this->res->eliminarsil($num, $idr);
 	}
 }

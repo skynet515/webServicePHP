@@ -8,29 +8,21 @@ $method = $_SERVER["REQUEST_METHOD"];
 //Vista de administrador y recpcionista
 //seleccionar mesas:
 //http://localhost:8080/webServicePHP/WS_php/services/SMesa.php
-if ($method == "GET" && !isset($_GET['id'])) {
+if ($method == "GET") {
     //todos los datos
-    $data = $mesa->ListarMesas();
+    $idr = $_GET["id"];
+    $data = $mesa->ListarMesas($idr);
 
     print json_encode($data, JSON_FORCE_OBJECT);
 }
-if ($method == "GET" && isset($_GET["id"]) && isset($_GET["fecha"])) {
-    //http://localhost:8080/webServicePHP/WS_php/services/SMesa.php?id=2
-
-    $id = $_GET["id"];
-    $fecha = $_GET["fecha"];
-
-    $data = $mesa->ListarMesa_h($id, $fecha);
-    print json_encode($data, JSON_FORCE_OBJECT);
-}
-
 
 
 //insertar mesa
 http: //localhost:8080/webServicePHP/WS_php/services/SMesa.php?num=5
 if ($method = "POST" && isset($_GET["num"])) {
     $numsillas = $_GET["num"];
-    $data = $mesa->InsertarMesa($numsillas);
+    $idr = $_GET["id"];
+    $data = $mesa->InsertarMesa($numsillas, $idr);
     if ($data)
         print json_encode(true, JSON_FORCE_OBJECT);
     else
@@ -42,8 +34,8 @@ if ($method = "POST" && isset($_GET["num"])) {
 if ($method == "PUT" && isset($_GET["num"])) {
     $id = $_GET["id"];
     $numsillas = $_GET["numsillas"];
-
-    $data = $mesa->EditarMesa($numsillas, $id);
+    $id = $_GET["idrest"];
+    $data = $mesa->EditarMesa($numsillas, $id, $idr);
     if ($data)
         print json_encode(true, JSON_FORCE_OBJECT);
     else
@@ -55,7 +47,8 @@ if ($method == "PUT" && isset($_GET["num"])) {
 if ($method == "DELETE" && isset($_GET["id"])) {
 
     $id = $_GET["id"];
-    $data = $mesa->EliminarMesa($id);
+    $id = $_GET["idrest"];
+    $data = $mesa->EliminarMesa($id, $idr);
     if ($data)
         print json_encode(true, JSON_FORCE_OBJECT);
     else

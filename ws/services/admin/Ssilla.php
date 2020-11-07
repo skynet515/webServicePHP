@@ -7,15 +7,16 @@ $method = $_SERVER["REQUEST_METHOD"];
 
 //Count de sillas
 if ($method == "GET") {
-    $data = $silla->listarsilla();
+    $data = $silla->listarsilla($_GET["id"]);
     print json_encode($data, JSON_FORCE_OBJECT);
 }
 
 //inseertar
 if ($method == "POST") {
     if (is_numeric($_GET["num"])) {
+        $idr = $_GET["idr"];
         $num = $_GET["num"];
-        $data = $silla->insertarsilla($num);
+        $data = $silla->insertarsilla($num, $idr);
         if ($data)
             print json_encode(true, JSON_FORCE_OBJECT);
         else
@@ -27,7 +28,8 @@ if ($method == "POST") {
 if ($method == "DELETE") {
     if (is_numeric($_GET["num"])) {
         $num = $_GET["num"];
-        $data = $silla->eliminarsilla($num);
+        $idr = $_GET["id"];
+        $data = $silla->eliminarsilla($num, $idr);
         if ($data)
             print json_encode(true, JSON_FORCE_OBJECT);
         else
