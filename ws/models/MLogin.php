@@ -59,7 +59,7 @@ class MLogin
             $PrepareStatement = $this->cnn->getPrepareStatement($sql);
             $PrepareStatement->bindValue(1, $id, PDO::PARAM_INT);
             $PrepareStatement->execute();
-            return $PrepareStatement->fetchAll();
+            return $PrepareStatement->fetch();
         } catch (PDOException $e) {
             echo "Error: " . $e;
         }
@@ -72,7 +72,7 @@ class MLogin
             $PrepareStatement = $this->cnn->getPrepareStatement($sql);
             $PrepareStatement->bindValue(1, $id, PDO::PARAM_INT);
             $PrepareStatement->execute();
-            return $PrepareStatement->fetchAll();
+            return $PrepareStatement->fetch();
         } catch (PDOException $e) {
             echo "Error: " . $e;
         }

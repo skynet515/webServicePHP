@@ -5,13 +5,14 @@ class Algoritmos
 	//algorimo mesas:
 	function mesas($mesas)
 	{
-		$mesas = "5-3-4";
+		//$mesas = "5-3-4";
 		$array = explode("-", $mesas);
+		$mesas=array();
 
 		foreach ($array as $n => $mesa) {
 			$mesas[$n] = $mesa;
 
-			echo '$mesa [' . $n . '] = ' . $mesa . "<br>";
+			//echo '$mesa [' . $n . '] = ' . $mesa . "<br>";
 		}
 		return $mesas;
 	}
@@ -22,13 +23,13 @@ class Algoritmos
 		//Trabajar en formato 24 horas
 		$array = explode("-", $hora);
 
-		$horasT = abs($array[1] - $array[0]);
+		$horasT = abs($array[1]-$array[0]);
 
 		$ini = $array[0];
 		$fin = $ini + 1;
 		for ($x = 0; $x < $horasT; $x++) {
 
-			echo $data[$x] = "$ini - $fin <br>";
+			 $data[$x] = "$ini-$fin";
 			$ini++;
 			$fin++;
 		}

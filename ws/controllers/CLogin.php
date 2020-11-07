@@ -68,9 +68,13 @@ class CLogin
                 if ($_SESSION['idrol'] > 3) {
                     $_SESSION['rol'] = 'cliente';
                 } else {
-                    $req = $this->login->restarante($_SESSION['id']);
+                    $data=$this->login->datossesionT($_SESSION["id"]);
+                    $_SESSION['idt']=$data["idtrabajador"];
+
+                    $req = $this->login->restarante($_SESSION['idt']);
                     $_SESSION['rol'] = $request["rol"];
                     $_SESSION['idrest'] = $req["idrestaurante"];
+                   
                 }
                 return $request;
             }
