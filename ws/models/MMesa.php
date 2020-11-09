@@ -35,7 +35,7 @@ class MMesa
             INNER JOIN tblasignarmesas b ON b.idhora=a.idhora
             INNER JOIN tblreserva c ON b.idreserva = c.idreserva
             INNER JOIN tblrestaurantes d ON d.idrestaurante=c.idrestaurante
-            WHERE b.idmesa =? AND b.estado = 0 AND d.idrestaurante=? AND c.fechareserva=?;";
+            WHERE b.idmesa =? AND d.idrestaurante=? AND c.fechareserva=?;";
 
             $PrepareStatement = $this->conexion->getPrepareStatement($sql);
             $PrepareStatement->bindValue(1, $id, PDO::PARAM_INT);

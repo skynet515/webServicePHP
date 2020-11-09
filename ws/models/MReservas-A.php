@@ -39,6 +39,67 @@ class MReservasA
         }
     }
 
+    //Realizar Reserva cuando el cliente no existe
+    public function reservaClienteNexist($data)
+    {
+    }
+
+    //Realizar Reserva cuando el cliente ya en nuestras bases de datos
+    public function reservaClienteExist($data, $idt, $idrest, $a_mesa, $a_hora)
+    {
+        //Realizar reserva:
+        $sql = "INSERT INTO tblreserva(estadoC, numasistentes, fechareserva, sillasextra, 
+        idcliente, idtrabajador, idrestaurante, estado, mesas, horas)
+        VALUES (?,?,?,?,?,?,?,?,?,?);";
+        try {
+            $PrepareStatement = $this->cnn->getPrepareStatement($sql);
+            $PrepareStatement->bindValue(1, 0, PDO::PARAM_INT);
+            $PrepareStatement->bindValue(2, $data['num_a'], PDO::PARAM_INT);
+            $PrepareStatement->bindValue(3, $data['fecha'], PDO::PARAM_STR);
+            $PrepareStatement->bindValue(4, $data['sillas'], PDO::PARAM_INT);
+            $PrepareStatement->bindValue(5, $data['idcli'], PDO::PARAM_INT);
+            $PrepareStatement->bindValue(6, $idt, PDO::PARAM_INT);
+            $PrepareStatement->bindValue(7, $idrest, PDO::PARAM_INT);
+            $PrepareStatement->bindValue(8, 1, PDO::PARAM_INT);
+            $PrepareStatement->bindValue(9, $data['mesa'], PDO::PARAM_STR);
+            $PrepareStatement->bindValue(10, $data['hora'], PDO::PARAM_STR);
+            $exec = $PrepareStatement->execute();
+            if ($exec) {
+                $sql = "SELECT MAX(idreserva) AS idreserva FROM tblreserva
+                WHERE idrestaurante=? AND idcliente=? AND fechareserva = ?";
+                $PrepareStatement = $this->cnn->getPrepareStatement($sql);
+                $PrepareStatement->bindValue(1, $idrest, PDO::PARAM_INT);
+                $PrepareStatement->bindValue(2, $data['idcli'], PDO::PARAM_INT);
+                $PrepareStatement->bindValue(3, $data['fecha'], PDO::PARAM_INT);
+                $PrepareStatement->execute();
+                $idreserva = $PrepareStatement->fetch();
+
+
+                $sql = "select idhora from tblhoras WHERE hora=?;";
+
+                foreach ($a_hora as $nh => $horas) {
+
+                    $h = $a_hora[$nh];
+                    $PrepareStatement = $this->cnn->getPrepareStatement($sql);
+                    $PrepareStatement->bindValue(1, $h, PDO::PARAM_STR);
+                    $PrepareStatement->execute();
+                    $idh = $PrepareStatement->fetch();
+
+                    foreach ($a_mesa as $nm => $mesas) {
+                        $m = $a_mesa[$nm];
+                        $request = $this->resevaG($idreserva['idreserva'], $idh, $m);
+                    }
+                }
+                return $request;
+            }
+        } catch (PDOException $e) {
+            echo "Error: " . $e;
+            return false;
+        }
+    }
+
+    //_-------------------------------------------------------
+    //Realizar Reserva cuando el cliente ya la haya solicitado
     public function realizarReserva($idre, $mesa, $sillae, $hora, $a_hora, $a_mesa, $idt)
     {
         $sql = "UPDATE tblreserva 
@@ -57,10 +118,6 @@ class MReservasA
             if ($re) {
                 $sql = "select idhora from tblhoras WHERE hora=?;";
 
-
-                $sql1 = "INSERT INTO tblasignarmesas(idreserva, idhora, idmesa)
-                VALUES(?,?,?)";
-
                 foreach ($a_hora as $nh => $horas) {
 
                     $h = $a_hora[$nh];
@@ -71,15 +128,28 @@ class MReservasA
 
                     foreach ($a_mesa as $nm => $mesas) {
                         $m = $a_mesa[$nm];
-                        $PrepareStatement = $this->cnn->getPrepareStatement($sql1);
-                        $PrepareStatement->bindValue(1, $idre, PDO::PARAM_INT);
-                        $PrepareStatement->bindValue(2, $idh["idhora"], PDO::PARAM_INT);
-                        $PrepareStatement->bindValue(3, $m, PDO::PARAM_INT);
-                        $data=$PrepareStatement->execute();
+                        $data = $this->resevaG($idre, $idh, $m);
                     }
                 }
-             return $data;   
+                return $data;
             }
+        } catch (PDOException $e) {
+            echo "Error: " . $e;
+            return false;
+        }
+    }
+
+    function resevaG($idres, $idh, $m)
+    {
+        $sql1 = "INSERT INTO tblasignarmesas(idreserva, idhora, idmesa)
+        VALUES(?,?,?)";
+
+        try {
+            $PrepareStatement = $this->cnn->getPrepareStatement($sql1);
+            $PrepareStatement->bindValue(1, $idres, PDO::PARAM_INT);
+            $PrepareStatement->bindValue(2, $idh["idhora"], PDO::PARAM_INT);
+            $PrepareStatement->bindValue(3, $m, PDO::PARAM_INT);
+            return $PrepareStatement->execute();
         } catch (PDOException $e) {
             echo "Error: " . $e;
             return false;

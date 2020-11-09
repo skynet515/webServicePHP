@@ -65,9 +65,9 @@ class MCliente
         }
     }
 
+    //Cliente que no pertenece a CETU
     public function InsertarClienteO($rol, $nombres, $apellidos, $tel, $correo, $dui, $clave)
     {
-
         try {
             $sql = "CALL sp_s_rol(?)";
             $PrepareStatement = $this->conexion->getPrepareStatement($sql);
@@ -84,7 +84,6 @@ class MCliente
             if ($val["correo"] != "") {
                 return "exist";
             } else {
-
                 if (!empty($idr)) {
                     $sql = "CALL sp_c_personas(?,?,?,?,?,?,?)";
                     $PrepareStatement = $this->conexion->getPrepareStatement($sql);
@@ -93,18 +92,19 @@ class MCliente
                     $PrepareStatement->bindValue(3, $tel, PDO::PARAM_STR);
                     $PrepareStatement->bindValue(4, $correo, PDO::PARAM_STR);
                     $PrepareStatement->bindValue(5, $dui, PDO::PARAM_STR);
-                    $PrepareStatement->bindValue(6, $clave, PDO::PARAM_STR);
+                    $PrepareStatement->bindValue(6, null, PDO::PARAM_STR);
                     $PrepareStatement->bindValue(7, $idr['idrol'], PDO::PARAM_INT);
                     $req = $PrepareStatement->execute();
                     if ($req) {
-                        $sql = "CALL sp_s_persona_max(?)";
+                        $sql = "CALL sp_s_persona_max(?,?)";
                         $PrepareStatement = $this->conexion->getPrepareStatement($sql);
                         $PrepareStatement->bindValue(1, $tel, PDO::PARAM_STR);
+                        $PrepareStatement->bindValue(2, $correo, PDO::PARAM_STR);
                         $PrepareStatement->execute();
                         $idpers = $PrepareStatement->fetch();
 
                         if (!empty($idpers)) {
-                            $sql = "CALL sp_c_cliente(?)";
+                            $sql = "INSERT INTO tblclientes(idpersona, aceptado) VALUES (?, NULL);";
                             $PrepareStatement = $this->conexion->getPrepareStatement($sql);
                             $PrepareStatement->bindValue(1, $idpers["idpersona"], PDO::PARAM_INT);
                             return $PrepareStatement->execute();
@@ -117,6 +117,7 @@ class MCliente
         }
     }
 
+    //Cliente que pertenece a CETU
     public function InsertarCliente($rol, $nombres, $apellidos, $tel, $correo, $dui, $clave)
     {
         try {
@@ -148,9 +149,10 @@ class MCliente
                     $PrepareStatement->bindValue(7, $idr['idrol'], PDO::PARAM_INT);
                     $req = $PrepareStatement->execute();
                     if ($req) {
-                        $sql = "CALL sp_s_persona_max(?)";
+                        $sql = "CALL sp_s_persona_max(?, ?)";
                         $PrepareStatement = $this->conexion->getPrepareStatement($sql);
                         $PrepareStatement->bindValue(1, $tel, PDO::PARAM_STR);
+                        $PrepareStatement->bindValue(2, $correo, PDO::PARAM_STR);
                         $PrepareStatement->execute();
                         $idpers = $PrepareStatement->fetch();
 
