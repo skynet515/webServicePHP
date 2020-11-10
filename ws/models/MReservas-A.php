@@ -182,4 +182,20 @@ class MReservasA
             return false;
         }
     }
+//detalle de reserva de cada cliente:
+
+    public function DetalleReserva($idrest, $idreserva){
+        $sql="SELECT * FROM tblpersonas AS p INNER JOIN tblclientes AS cl ON p.idpersona=cl.idpersona INNER JOIN tblreserva AS re ON
+        cl.idcliente=re.idcliente INNER JOIN tblrestaurantes AS rest ON re.idrestaurante=rest.idrestaurante 
+        WHERE cl.aceptado=1 AND re.estado=0 AND rest.idrestaurante=? AND re.idreserva=?;";
+        try{
+            $PrepareStatement=$this->cnn->getPrepareStatement($sql);
+            $PrepareStatement->bindValue(1, $idrest, PDO::PARAM_INT);
+            $PrepareStatement->bindValue(2, $idreserva, PDO::PARAM_INT);
+            $PrepareStatement->execute();
+            return $PrepareStatement->fetch();
+        }catch(PDOException $e){
+            echo "Error: ".$e;
+        }
+    }
 }

@@ -54,4 +54,12 @@ class CReservasA
         $idt = $_SESSION["idt"];
         return $this->re->realizarReserva($idresv, $mesa, $sillae, $hora, $a_hora, $a_mesa, $idt);
     }
+
+    public function DetalleReserva($idreserva){
+        if(session_status()==1){
+            session_start();
+            $idrest=$_SESSION["idrest"];
+            return $this->re->DetalleReserva($idrest, $idreserva);
+        }
+    }
 }

@@ -5,7 +5,7 @@ include('../../controllers/Calgoritmos.php');
 $re = new CReservasA();
 $alg = new Algoritmos();
 $method = $_SERVER["REQUEST_METHOD"];
-
+//buzon de entrada de reservas en linea:
 if ($method == "GET") {
     if (!isset($_GET["conf"])) {
         $data = $re->ReservasLinea();
@@ -18,8 +18,12 @@ if ($method == "GET") {
     }
 
     if (isset($_GET['idreserva'])) {
+        $data=$re->DetalleReserva($_GET['idreserva']);
     }
 }
+
+
+
 
 //Realizar Reservas cuando no haya una solicitud del cliente.
 if ($method == "POST") {
