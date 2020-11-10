@@ -23,6 +23,3 @@ class CReservas{
         return $this->reserva->ReservasConfirmadas($idpersona);
     }
 }
-
-
-?>

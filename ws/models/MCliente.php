@@ -127,14 +127,19 @@ class MCliente
             $PrepareStatement->execute();
             $idr = $PrepareStatement->fetch();
 
-            $sql = "SELECT correo FROM tblpersonas WHERE correo=(?)";
+            $sql = "SELECT correo, idrol, idcliente FROM tblpersonas a
+            INNER JOIN tblclientes b ON a.idpersona=b.idpersona WHERE correo=(?);";
             $PrepareStatement = $this->cnn->getPrepareStatement($sql);
             $PrepareStatement->bindValue(1, $correo, PDO::PARAM_STR);
             $PrepareStatement->execute();
             $val = $PrepareStatement->fetch();
 
             if ($val) {
-                return "exist";
+                if ($val['idrol'] == 7) {
+                    return $this->ModificarCliente($rol, $nombres, $apellidos, $tel, $correo, $dui, $clave, $val['idcliente']);
+                } else {
+                    return "exist";
+                }
             } else {
 
                 if (!empty($idr)) {

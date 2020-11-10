@@ -1,13 +1,15 @@
 <?php
 include_once('../../conexion/conexion.php');
+include_once('MCliente.php');
 
 class MReservasA
 {
-    private $cnn;
+    private $cnn, $newCli;
 
     public function __construct()
     {
         $this->cnn = Conexion::getInstance();
+        $this->newCli = new MCliente();
     }
 
     public function ReservasLinea($id)
@@ -40,8 +42,33 @@ class MReservasA
     }
 
     //Realizar Reserva cuando el cliente no existe
-    public function reservaClienteNexist($data)
+    public function reservaClienteNoExist($data, $idt, $idrest, $a_mesa, $a_hora)
     {
+        //Insertar clienteaaaaaaaaa
+        $client = $this->newCli->InsertarClienteO($data['rol'], $data['nombre'], $data['apellido'], $data['tel'], $data['correo'], $data['dui'], $data['clave']);
+
+        //Recuperar Cliente
+        if ($client) {
+            $sql = "SELECT idcliente FROM tblclientes a 
+            INNER JOIN tblpersonas b ON a.idpersona=b.idpersona
+            WHERE b.nombre=? AND b.apellido=? AND b.tel=? AND b.correo=?";
+            try {
+                $PrepareStatement = $this->cnn->getPrepareStatement($sql);
+                $PrepareStatement->bindValue(1, $data['nombre'], PDO::PARAM_STR);
+                $PrepareStatement->bindValue(2, $data['apellido'], PDO::PARAM_STR);
+                $PrepareStatement->bindValue(3, $data['tel'], PDO::PARAM_STR);
+                $PrepareStatement->bindValue(4, $data['correo'], PDO::PARAM_STR);
+                $PrepareStatement->execute();
+                $idc = $PrepareStatement->fetch();
+                $data['idcli'] = $idc;
+
+                //Seguir el proceso como si el cliente ya existiera, con el metodo que ya se habia creado (reservaClienteExist)
+                return $this->reservaClienteExist($data, $idt, $idrest, $a_mesa, $a_hora);
+            } catch (PDOException $e) {
+                echo "Error: " . $e;
+                return false;
+            }
+        }
     }
 
     //Realizar Reserva cuando el cliente ya en nuestras bases de datos

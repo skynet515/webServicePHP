@@ -19,6 +19,18 @@ class CReservasA
     }
 
     //Reserva Cliente no esta en bd
+    public function ReservasLineaNoExist($data, $a_mesa, $a_hora)
+    {
+        if (session_status() == 1)
+            session_start();
+
+        $idt = $_SESSION['idt'];
+        $idrest = $_SESSION['idrest'];
+        return $this->re->reservaClienteNoExist($data, $idt, $idrest, $a_mesa, $a_hora);
+    }
+
+
+
     public function ReservasLinea()
     {
         if (session_status() == 1)

@@ -6,13 +6,19 @@ $re = new CReservasA();
 $alg = new Algoritmos();
 $method = $_SERVER["REQUEST_METHOD"];
 
-if ($method == "GET" && !isset($_GET["conf"])) {
-    $data = $re->ReservasLinea();
-    print json_encode($data, JSON_FORCE_OBJECT);
-}
-if ($method == "GET" && isset($_GET["conf"])) {
-    $data = $re->ReservasLineaConfir();
-    print json_encode($data, JSON_FORCE_OBJECT);
+if ($method == "GET") {
+    if (!isset($_GET["conf"])) {
+        $data = $re->ReservasLinea();
+        print json_encode($data, JSON_FORCE_OBJECT);
+    }
+
+    if (isset($_GET["conf"])) {
+        $data = $re->ReservasLineaConfir();
+        print json_encode($data, JSON_FORCE_OBJECT);
+    }
+
+    if (isset($_GET['idreserva'])) {
+    }
 }
 
 //Realizar Reservas cuando no haya una solicitud del cliente.
@@ -22,6 +28,8 @@ if ($method == "POST") {
     $mesa = $_GET["mesa"];
     $silla = $_GET["silla"];
     $hora = $_GET["hora"];
+    $num_a = $_GET["num_a"];
+    $fecha = $_GET["fecha"];
 
     //arrays
     $a_hora = $alg->hora($hora);
@@ -33,8 +41,7 @@ if ($method == "POST") {
     if (isset($_GET["idcli"])) {
         //id del cliente 
         $idcli = $_GET["idcli"];
-        $num_a = $_GET["num_a"];
-        $fecha = $_GET["fecha"];
+
         $datos = array(
             'idcli' => $idcli,
             'mesa' => $mesa,
@@ -45,7 +52,7 @@ if ($method == "POST") {
         );
         $data = $re->reservaClienteExist($datos, $a_mesa, $a_hora);
         print json_encode(true, JSON_FORCE_OBJECT);
-    } /*else {
+    } else {
         //No está en nuestras bases de datos
         $alg = new Algoritmos();
         $rol = "Otro";
@@ -56,17 +63,27 @@ if ($method == "POST") {
         $dui = $alg->palabra(($_GET["dui"]));
 
         $datos = array(
+            //Datos Cliente
+            'idcli' => 0,
             'rol' => $rol,
             'nombre' => $nombre,
             'apellido' => $apellido,
             'tel' => $tel,
             'correo' => $correo,
             'dui' => $dui,
+            'clave' => "",
+            //Datos reserva
+
             'mesa' => $mesa,
             'hora' => $hora,
-            'silla' => $silla
+            'sillas' => $silla,
+            'num_a' => $num_a,
+            'fecha' => $fecha
         );
-    }*/
+
+        $data = $re->ReservasLineaNoExist($datos, $a_mesa, $a_hora);
+        print json_encode(true, JSON_FORCE_OBJECT);
+    }
 }
 
 

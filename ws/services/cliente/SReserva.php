@@ -27,7 +27,15 @@ if (
     }
 }
 
+
 if ($method == "GET") {
-    $data = $reserva->ListarReservas();
-    print json_encode($data, JSON_FORCE_OBJECT);
+    //Enlistar todas las reservas confirmadas para el cliente (Buzon de entrada Reservas...)
+    if (!isset($_GET['idreserva'])) {
+        $data = $reserva->ListarReservas();
+        print json_encode($data, JSON_FORCE_OBJECT);
+    }
+    //Recuperar los datos de una reserva a traves del id de dicha reserva (No es necesario 
+    //el id restaurante ya que solo hay un unico id de reserva)
+    else {
+    }
 }
