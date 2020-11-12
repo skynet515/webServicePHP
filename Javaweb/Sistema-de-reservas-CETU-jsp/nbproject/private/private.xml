@@ -3,9 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
+            <file>file:/C:/Users/gerar/Desktop/Sistema-de-reservas-CETU/web/jsp/recepcionista/agregar-cliente.jsp</file>
+            <file>file:/C:/Users/gerar/Desktop/Sistema-de-reservas-CETU/web/jsp/recepcionista/helpers/modal-error.jsp</file>
+            <file>file:/C:/Users/gerar/Desktop/Sistema-de-reservas-CETU/web/jsp/recepcionista/solicitudes.jsp</file>
+            <file>file:/C:/Users/gerar/Desktop/Sistema-de-reservas-CETU/web/jsp/recepcionista/helpers/modal-success.jsp</file>
+=======
             <file>file:/C:/Users/kevin/OneDrive/Escritorio/CETU_RES/Sistema-de-reservas-CETU/web/jsp/cliente/reservar.jsp</file>
             <file>file:/C:/Users/kevin/OneDrive/Escritorio/CETU_RES/Sistema-de-reservas-CETU/web/WEB-INF/solucion.txt</file>
             <file>file:/C:/Users/kevin/OneDrive/Escritorio/CETU_RES/Sistema-de-reservas-CETU/web/jsp/cliente/index.jsp</file>
+>>>>>>> 097b222a035fddf5beda870c8496f2cafd91d807
         </group>
     </open-files>
 </project-private>
